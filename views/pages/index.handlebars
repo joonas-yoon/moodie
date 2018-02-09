@@ -48,12 +48,17 @@ function generate_html_card(card){
 function load_list(page, callback){
   page = page || 1;
   overlay('show');
+  var resCont = $("#result");
+  resCont.data('page', page);
+  resCont.data('next', page + 1);
   $.getJSON(
   	'/api/list/' + page,
   	function(result){
       callback(result.data.movies);
     })
   .done(function(d){
+    resCont.data('page', page + 1);
+    resCont.data('next', page + 2);
   	overlay('hide');
   })
   .fail(function(d){console.log('fail', d);});
