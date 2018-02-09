@@ -1,5 +1,18 @@
 <div class="container">
-	<h1>title</h1>
+	<h1>Movies</h1>
+  <form id="search_form">
+  	<div class="row">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+    			<button class="btn btn-outline-secondary" type="button" id="btnInit">초기화</button>
+        </div>
+        <input type="text" name="text" class="form-control" placeholder="Search Text..." required />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+  	</div>
+  </form>
   <div class="row" id="result" data-page="1" data-next="2"></div>
 </div>
 <div class="overlay loading">
@@ -45,14 +58,14 @@ function generate_html_card(card){
   return str;
 }
 
-function load_list(page, callback){
+function load_list(url, page, callback){
   page = page || 1;
   overlay('show');
   var resCont = $("#result");
   resCont.data('page', page);
   resCont.data('next', page + 1);
   $.getJSON(
-  	'/api/list/' + page,
+  	url + '?page=' + page,
   	function(result){
       callback(result.movies);
     })
@@ -61,7 +74,7 @@ function load_list(page, callback){
     resCont.data('next', page + 2);
   	overlay('hide');
   })
-  .fail(function(d){console.log('fail', d);});
+  .fail(function(d){alert('failed to load');});
 }
 
 function overlay(txt){
@@ -82,7 +95,17 @@ function append_movies(cont, list){
 function init_page(){
   var resultContainer = $("#result");
 	resultContainer.html('');
-  load_list(1, function(list){
+  resultContainer.data('query', '');
+  load_list('/api/list/', 1, function(list){
+  	append_movies(resultContainer, list);
+  });
+}
+
+function search(query){
+  var resultContainer = $("#result");
+	resultContainer.html('');
+  resultContainer.data('query', query);
+  load_list('/api/search/' + query, 1, function(list){
   	append_movies(resultContainer, list);
   });
 }
@@ -94,10 +117,22 @@ $(document).ready(function(){
   $(window).scroll(function() {
     if($(window).scrollTop() + $(window).height() == $(document).height()) {
     	var cont = $("#result");
-      load_list(cont.data('next') || ((cont.data('page') || 1) + 1), function(list){
+      var url = '/api/list/';
+      if( cont.data('query') != '' ){
+      	// keep going to search
+      	url = '/api/search/' + cont.data('query');
+      }
+      load_list(url, cont.data('next') || ((cont.data('page') || 1) + 1), function(list){
         append_movies(cont, list);
       });
     }
   });
+  
+  $("#search_form").submit(function(e) {
+  	e.preventDefault();
+    search(encodeURI(e.target.text.value));
+  });
+  
+  $("#btnInit").click(init_page);
 });
 </script>
