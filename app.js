@@ -35,7 +35,7 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use('/', require('./routes/index'));
-// app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/api'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(require('./routes/error'));
 
