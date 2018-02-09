@@ -1,0 +1,19 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+
+.row .card {
+  margin-bottom: 10px;
+}
+.card .card-genres>span {
+  font-size: 90%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #eee;
+  padding: 2px 4px;
+  margin-right: 5px;
+}

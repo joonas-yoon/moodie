@@ -1,0 +1,637 @@
+<div class="container">
+	<h1>title</h1>
+  <div class="row" id="result" data-page="1" data-next="2"></div>
+</div>
+<div class="overlay loading" style="
+    background: rgba(0,0,0,.7);
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+"></div>
+
+<script type="text/javascript">
+function generate_html_card(card){
+  var str = "";
+	str += '<div class="col-sm-12 col-md-3"><div class="card">';
+	str += '<div class="card-body" style="margin:0;height:250px;padding:0;background:url('+ card.medium_cover_image + ') center center;background-size: cover;"></div>';
+	str += '<div class="card-body">';
+	str += '<h5 class="card-title">' + card.title_long + '</h5>';
+  var genstr = '';
+  if( !! card.genres ){
+    genstr = '<span>'+ card.genres.join('</span><span>') + '</span>';
+  }
+	str += '<div class="card-genres">' + genstr + '</div>';
+	str += '</div>';
+	str += '<div class="card-footer">';
+  
+  var make_star = function(rating){
+  	rating = rating || 0;
+    rating = rating / 2;
+    var rating10 = Math.floor(rating * 10);
+    var ratingFl = Math.floor(rating);
+    var hasHalf = 2 < (rating10 % 10) && (rating10 % 10) <= 6;
+    var str = '', maxStar = 5 - (hasHalf ? 1 : 0);
+  	for(var i=0; i<ratingFl; ++i){
+    	str += '<i class="fa fa-star"></i> ';
+    }
+    if(hasHalf) str += '<i class="fa fa-star-half-o"></i> ';
+    for(var i=0; i<10-ratingFl; ++i){
+    	str += '<i class="fa fa-star-o"></i> ';
+    }
+    return str;
+	}
+	str += '<small>rating: '+ (card.rating || 0) + '<br>' + make_star(card.rating) + '<br></small>';
+  str += '<div style="text-align:center;"><small class="text-muted"><a href="'+ card.url +'">자세히 보기</a></small></div>';
+	str += '</div></div>';
+  return str;
+}
+
+function load_list(page){
+  page = page || 1;
+  list = [
+			{
+				"id": 7059,
+				"url": "https://yts.am/movie/the-everlasting-flame-2009",
+				"imdb_code": "tt1491616",
+				"title": "The Everlasting Flame",
+				"title_english": "The Everlasting Flame",
+				"title_long": "The Everlasting Flame (2009)",
+				"slug": "the-everlasting-flame-2009",
+				"year": 2009,
+				"rating": 6.2,
+				"runtime": 110,
+				"genres": [
+					"Documentary",
+					"Sport"
+				],
+				"summary": "",
+				"description_full": "",
+				"synopsis": "",
+				"yt_trailer_code": "0BE0fL_tqnc",
+				"language": "English",
+				"mpa_rating": "NR",
+				"background_image": "https://yts.am/assets/images/movies/the_everlasting_flame_2009/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/the_everlasting_flame_2009/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/the_everlasting_flame_2009/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/the_everlasting_flame_2009/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/the_everlasting_flame_2009/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/1D610E202B243B6FA2EA33F09AFC8210A16F48A6",
+						"hash": "1D610E202B243B6FA2EA33F09AFC8210A16F48A6",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "742.01 MB",
+						"size_bytes": 778053878,
+						"date_uploaded": "2018-02-07 18:57:30",
+						"date_uploaded_unix": 1518047850
+					},
+					{
+						"url": "https://yts.am/torrent/download/A1E35C103B196CC0AE278BF75AB2C7B029B6508F",
+						"hash": "A1E35C103B196CC0AE278BF75AB2C7B029B6508F",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.54 GB",
+						"size_bytes": 1653562409,
+						"date_uploaded": "2018-02-07 21:18:58",
+						"date_uploaded_unix": 1518056338
+					}
+				],
+				"date_uploaded": "2018-02-07 18:57:30",
+				"date_uploaded_unix": 1518047850
+			},
+			{
+				"id": 7058,
+				"url": "https://yts.am/movie/daddys-home-2-2017",
+				"imdb_code": "tt5657846",
+				"title": "Daddy's Home 2",
+				"title_english": "Daddy's Home 2",
+				"title_long": "Daddy's Home 2 (2017)",
+				"slug": "daddys-home-2-2017",
+				"year": 2017,
+				"rating": 6.1,
+				"runtime": 100,
+				"genres": [
+					"Comedy"
+				],
+				"summary": "Having finally gotten used to each other's existence, Brad and Dusty must now deal with their intrusive fathers during the holidays.",
+				"description_full": "Having finally gotten used to each other's existence, Brad and Dusty must now deal with their intrusive fathers during the holidays.",
+				"synopsis": "Having finally gotten used to each other's existence, Brad and Dusty must now deal with their intrusive fathers during the holidays.",
+				"yt_trailer_code": "yyW_EX7iRW0",
+				"language": "English",
+				"mpa_rating": "PG-13",
+				"background_image": "https://yts.am/assets/images/movies/daddys_home_2_2017/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/daddys_home_2_2017/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/daddys_home_2_2017/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/daddys_home_2_2017/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/daddys_home_2_2017/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/50BB776492C70BA47D11E90B23E292831A44BBF9",
+						"hash": "50BB776492C70BA47D11E90B23E292831A44BBF9",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "725.26 MB",
+						"size_bytes": 760490230,
+						"date_uploaded": "2018-02-07 15:27:29",
+						"date_uploaded_unix": 1518035249
+					},
+					{
+						"url": "https://yts.am/torrent/download/3A7E77D70A52799924C33B88B81EA4D29F9BD7C7",
+						"hash": "3A7E77D70A52799924C33B88B81EA4D29F9BD7C7",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.51 GB",
+						"size_bytes": 1621350154,
+						"date_uploaded": "2018-02-07 17:43:04",
+						"date_uploaded_unix": 1518043384
+					}
+				],
+				"date_uploaded": "2018-02-07 15:27:29",
+				"date_uploaded_unix": 1518035249
+			},
+			{
+				"id": 7057,
+				"url": "https://yts.am/movie/patient-seventeen-2017",
+				"imdb_code": "tt4083682",
+				"title": "Patient Seventeen",
+				"title_english": "Patient Seventeen",
+				"title_long": "Patient Seventeen (2017)",
+				"slug": "patient-seventeen-2017",
+				"year": 2017,
+				"rating": 4.2,
+				"runtime": 68,
+				"genres": [
+					"Documentary",
+					"Mystery"
+				],
+				"summary": "Meet a surgeon who claims to remove highly advance implants, nanotechnology microchips imbedded by aliens, non-humans monitoring our earth. Discover the world of abductions, scalar wave transmissions, and a program to study or manipulate the human race. Armed with a patient, a scalpel, black lights and a stud finder; we seek to verify the authenticity of this alleged Off-World Implant Technology.",
+				"description_full": "Meet a surgeon who claims to remove highly advance implants, nanotechnology microchips imbedded by aliens, non-humans monitoring our earth. Discover the world of abductions, scalar wave transmissions, and a program to study or manipulate the human race. Armed with a patient, a scalpel, black lights and a stud finder; we seek to verify the authenticity of this alleged Off-World Implant Technology.",
+				"synopsis": "Meet a surgeon who claims to remove highly advance implants, nanotechnology microchips imbedded by aliens, non-humans monitoring our earth. Discover the world of abductions, scalar wave transmissions, and a program to study or manipulate the human race. Armed with a patient, a scalpel, black lights and a stud finder; we seek to verify the authenticity of this alleged Off-World Implant Technology.",
+				"yt_trailer_code": "8fUzO-7_9r0",
+				"language": "English",
+				"mpa_rating": "NR",
+				"background_image": "https://yts.am/assets/images/movies/patient_seventeen_2017/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/patient_seventeen_2017/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/patient_seventeen_2017/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/patient_seventeen_2017/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/patient_seventeen_2017/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/F329036F525E935266F0CE6DDB633F229B2E8308",
+						"hash": "F329036F525E935266F0CE6DDB633F229B2E8308",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "482.83 MB",
+						"size_bytes": 506283950,
+						"date_uploaded": "2018-02-07 00:23:31",
+						"date_uploaded_unix": 1517981011
+					},
+					{
+						"url": "https://yts.am/torrent/download/986A3FABDEA2F9EC2B30104829B0FC21D8913D4A",
+						"hash": "986A3FABDEA2F9EC2B30104829B0FC21D8913D4A",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.01 GB",
+						"size_bytes": 1084479242,
+						"date_uploaded": "2018-02-07 01:27:02",
+						"date_uploaded_unix": 1517984822
+					}
+				],
+				"date_uploaded": "2018-02-07 00:23:31",
+				"date_uploaded_unix": 1517981011
+			},
+			{
+				"id": 7055,
+				"url": "https://yts.am/movie/the-cloverfield-paradox-2018",
+				"imdb_code": "tt2548396",
+				"title": "The Cloverfield Paradox",
+				"title_english": "The Cloverfield Paradox",
+				"title_long": "The Cloverfield Paradox (2018)",
+				"slug": "the-cloverfield-paradox-2018",
+				"year": 2018,
+				"rating": 6,
+				"runtime": 102,
+				"genres": [
+					"Horror",
+					"Mystery",
+					"Sci-Fi",
+					"Thriller"
+				],
+				"summary": "Orbiting a planet on the brink of war, scientists test a device to solve an energy crisis, and end up face-to-face with a dark alternate reality.",
+				"description_full": "Orbiting a planet on the brink of war, scientists test a device to solve an energy crisis, and end up face-to-face with a dark alternate reality.",
+				"synopsis": "Orbiting a planet on the brink of war, scientists test a device to solve an energy crisis, and end up face-to-face with a dark alternate reality.",
+				"yt_trailer_code": "83SExfi3prU",
+				"language": "English",
+				"mpa_rating": "NR",
+				"background_image": "https://yts.am/assets/images/movies/the_cloverfield_paradox_2018/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/the_cloverfield_paradox_2018/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/the_cloverfield_paradox_2018/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/the_cloverfield_paradox_2018/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/the_cloverfield_paradox_2018/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/60C9B346362C6D260493028400E9D8BDBFE5F194",
+						"hash": "60C9B346362C6D260493028400E9D8BDBFE5F194",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "749.48 MB",
+						"size_bytes": 785886740,
+						"date_uploaded": "2018-02-06 21:55:24",
+						"date_uploaded_unix": 1517972124
+					},
+					{
+						"url": "https://yts.am/torrent/download/AC890C66AB804F46150AE134A8E1770D08B8F7FE",
+						"hash": "AC890C66AB804F46150AE134A8E1770D08B8F7FE",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.55 GB",
+						"size_bytes": 1664299827,
+						"date_uploaded": "2018-02-06 23:50:34",
+						"date_uploaded_unix": 1517979034
+					}
+				],
+				"date_uploaded": "2018-02-06 21:55:24",
+				"date_uploaded_unix": 1517972124
+			},
+			{
+				"id": 7053,
+				"url": "https://yts.am/movie/only-the-brave-2017",
+				"imdb_code": "tt3829920",
+				"title": "Only the Brave",
+				"title_english": "Only the Brave",
+				"title_long": "Only the Brave (2017)",
+				"slug": "only-the-brave-2017",
+				"year": 2017,
+				"rating": 7.8,
+				"runtime": 134,
+				"genres": [
+					"Biography",
+					"Drama"
+				],
+				"summary": "In 2007 Prescott, Arizona, Eric Marsh of the Prescott Fire Department is frustrated fighting forest fires when the Type 1 or \"Hotshot\" front line forest fire fighting crews from afar overrule his operational suggestions to his area's sorrow. To change that, Marsh gets approval from the Mayor to attempt to organize an unprecedented certified municipal-based Hotshot crew for Prescott. To that end, Marsh needs new recruits, which includes the young wastrel, Brendan McDonough, to undergo the rigorous training and qualification testing for the most dangerous of fire fighting duty. Along the way, the new team meets the challenge and the hailed Granite Mountain Hotshots are born. In doing so, all the men, especially McDonough, are changed as new experience and maturity is achieved in fire-forged camaraderie. All this is put to the test in 2013 with the notorious Yarnell Hill Fire that will demand efforts and sacrifices no one can ignore.",
+				"description_full": "In 2007 Prescott, Arizona, Eric Marsh of the Prescott Fire Department is frustrated fighting forest fires when the Type 1 or \"Hotshot\" front line forest fire fighting crews from afar overrule his operational suggestions to his area's sorrow. To change that, Marsh gets approval from the Mayor to attempt to organize an unprecedented certified municipal-based Hotshot crew for Prescott. To that end, Marsh needs new recruits, which includes the young wastrel, Brendan McDonough, to undergo the rigorous training and qualification testing for the most dangerous of fire fighting duty. Along the way, the new team meets the challenge and the hailed Granite Mountain Hotshots are born. In doing so, all the men, especially McDonough, are changed as new experience and maturity is achieved in fire-forged camaraderie. All this is put to the test in 2013 with the notorious Yarnell Hill Fire that will demand efforts and sacrifices no one can ignore.",
+				"synopsis": "In 2007 Prescott, Arizona, Eric Marsh of the Prescott Fire Department is frustrated fighting forest fires when the Type 1 or \"Hotshot\" front line forest fire fighting crews from afar overrule his operational suggestions to his area's sorrow. To change that, Marsh gets approval from the Mayor to attempt to organize an unprecedented certified municipal-based Hotshot crew for Prescott. To that end, Marsh needs new recruits, which includes the young wastrel, Brendan McDonough, to undergo the rigorous training and qualification testing for the most dangerous of fire fighting duty. Along the way, the new team meets the challenge and the hailed Granite Mountain Hotshots are born. In doing so, all the men, especially McDonough, are changed as new experience and maturity is achieved in fire-forged camaraderie. All this is put to the test in 2013 with the notorious Yarnell Hill Fire that will demand efforts and sacrifices no one can ignore.",
+				"yt_trailer_code": "EE_GY6zccqc",
+				"language": "English",
+				"mpa_rating": "PG-13",
+				"background_image": "https://yts.am/assets/images/movies/only_the_brave_2017/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/only_the_brave_2017/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/only_the_brave_2017/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/only_the_brave_2017/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/only_the_brave_2017/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/FC315997BF3DF33CA7F79E706DA1F1FCF6E31D74",
+						"hash": "FC315997BF3DF33CA7F79E706DA1F1FCF6E31D74",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1000.53 MB",
+						"size_bytes": 1049131745,
+						"date_uploaded": "2018-02-04 12:14:06",
+						"date_uploaded_unix": 1517764446
+					},
+					{
+						"url": "https://yts.am/torrent/download/02431A1145B35439436C15F55FFE0C6900CBB9A1",
+						"hash": "02431A1145B35439436C15F55FFE0C6900CBB9A1",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "2.05 GB",
+						"size_bytes": 2201170739,
+						"date_uploaded": "2018-02-04 14:43:33",
+						"date_uploaded_unix": 1517773413
+					}
+				],
+				"date_uploaded": "2018-02-04 12:14:06",
+				"date_uploaded_unix": 1517764446
+			},
+			{
+				"id": 7050,
+				"url": "https://yts.am/movie/the-stray-2017",
+				"imdb_code": "tt5342904",
+				"title": "The Stray",
+				"title_english": "The Stray",
+				"title_long": "The Stray (2017)",
+				"slug": "the-stray-2017",
+				"year": 2017,
+				"rating": 5.3,
+				"runtime": 92,
+				"genres": [
+					"Drama",
+					"Family"
+				],
+				"summary": "The story of how a stray dog, Pluto, comes out of nowhere and impacts the Davis family, who are struggling in many ways. In just a short time, Pluto the Wonderdog manages to save a toddler, bring comfort and companionship to a hurting 9-year old boy, help restore a marriage, and repair a broken father-son relationship. Pluto is not only a guard dog - he is a guardian angel.",
+				"description_full": "The story of how a stray dog, Pluto, comes out of nowhere and impacts the Davis family, who are struggling in many ways. In just a short time, Pluto the Wonderdog manages to save a toddler, bring comfort and companionship to a hurting 9-year old boy, help restore a marriage, and repair a broken father-son relationship. Pluto is not only a guard dog - he is a guardian angel.",
+				"synopsis": "The story of how a stray dog, Pluto, comes out of nowhere and impacts the Davis family, who are struggling in many ways. In just a short time, Pluto the Wonderdog manages to save a toddler, bring comfort and companionship to a hurting 9-year old boy, help restore a marriage, and repair a broken father-son relationship. Pluto is not only a guard dog - he is a guardian angel.",
+				"yt_trailer_code": "HYzRFqY7MNE",
+				"language": "English",
+				"mpa_rating": "PG",
+				"background_image": "https://yts.am/assets/images/movies/the_stray_2017/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/the_stray_2017/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/the_stray_2017/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/the_stray_2017/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/the_stray_2017/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/5579CA4400ADAEC8B1A34793C7361255A48FB31C",
+						"hash": "5579CA4400ADAEC8B1A34793C7361255A48FB31C",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "647.5 MB",
+						"size_bytes": 678952960,
+						"date_uploaded": "2018-02-05 13:48:25",
+						"date_uploaded_unix": 1517856505
+					},
+					{
+						"url": "https://yts.am/torrent/download/FDE465DBEAE82D0108A79AEFC79730F1571B0BF5",
+						"hash": "FDE465DBEAE82D0108A79AEFC79730F1571B0BF5",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.34 GB",
+						"size_bytes": 1438814044,
+						"date_uploaded": "2018-02-05 15:36:30",
+						"date_uploaded_unix": 1517862990
+					}
+				],
+				"date_uploaded": "2018-02-05 13:48:25",
+				"date_uploaded_unix": 1517856505
+			},
+			{
+				"id": 7049,
+				"url": "https://yts.am/movie/accident-2017",
+				"imdb_code": "tt3313054",
+				"title": "Accident",
+				"title_english": "Accident",
+				"title_long": "Accident (2017)",
+				"slug": "accident-2017",
+				"year": 2017,
+				"rating": 3.6,
+				"runtime": 95,
+				"genres": [
+					"Action",
+					"Thriller"
+				],
+				"summary": "A group of teenagers suffer a terrible accident during a joy ride and get trapped at the bottom of a ravine.",
+				"description_full": "A group of teenagers suffer a terrible accident during a joy ride and get trapped at the bottom of a ravine.",
+				"synopsis": "A group of teenagers suffer a terrible accident during a joy ride and get trapped at the bottom of a ravine.",
+				"yt_trailer_code": "GmXQDIRWHXQ",
+				"language": "English",
+				"mpa_rating": "NR",
+				"background_image": "https://yts.am/assets/images/movies/accident_2017/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/accident_2017/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/accident_2017/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/accident_2017/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/accident_2017/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/F4AECAC4A904725B66BAB41C6AB546BD9E4B0D01",
+						"hash": "F4AECAC4A904725B66BAB41C6AB546BD9E4B0D01",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "682.26 MB",
+						"size_bytes": 715401462,
+						"date_uploaded": "2018-02-04 00:47:30",
+						"date_uploaded_unix": 1517723250
+					},
+					{
+						"url": "https://yts.am/torrent/download/71E33C9EF566D0DAD0FB6EEA73E54D850D20AC6E",
+						"hash": "71E33C9EF566D0DAD0FB6EEA73E54D850D20AC6E",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.4 GB",
+						"size_bytes": 1503238554,
+						"date_uploaded": "2018-02-04 04:10:33",
+						"date_uploaded_unix": 1517735433
+					}
+				],
+				"date_uploaded": "2018-02-04 00:47:30",
+				"date_uploaded_unix": 1517723250
+			},
+			{
+				"id": 7048,
+				"url": "https://yts.am/movie/crooked-house-2017",
+				"imdb_code": "tt1869347",
+				"title": "Crooked House",
+				"title_english": "Crooked House",
+				"title_long": "Crooked House (2017)",
+				"slug": "crooked-house-2017",
+				"year": 2017,
+				"rating": 6.3,
+				"runtime": 115,
+				"genres": [
+					"Crime",
+					"Drama",
+					"Mystery"
+				],
+				"summary": "In this classic Agatha Christie detective story, former diplomat Charles Hayward has returned from Cairo to London to become a private detective. When Aristide Leonides, a wealthy and ruthless tycoon, is poisoned in his own bed, Detective Hayward is invited to solve the crime. As the investigation deepens he must confront the shocking realization that one of the key suspects is Aristede's beautiful granddaughter, his employer and former lover; and must keep a clear head to navigate the sultry Sophia and the rest of her hostile family.",
+				"description_full": "In this classic Agatha Christie detective story, former diplomat Charles Hayward has returned from Cairo to London to become a private detective. When Aristide Leonides, a wealthy and ruthless tycoon, is poisoned in his own bed, Detective Hayward is invited to solve the crime. As the investigation deepens he must confront the shocking realization that one of the key suspects is Aristede's beautiful granddaughter, his employer and former lover; and must keep a clear head to navigate the sultry Sophia and the rest of her hostile family.",
+				"synopsis": "In this classic Agatha Christie detective story, former diplomat Charles Hayward has returned from Cairo to London to become a private detective. When Aristide Leonides, a wealthy and ruthless tycoon, is poisoned in his own bed, Detective Hayward is invited to solve the crime. As the investigation deepens he must confront the shocking realization that one of the key suspects is Aristede's beautiful granddaughter, his employer and former lover; and must keep a clear head to navigate the sultry Sophia and the rest of her hostile family.",
+				"yt_trailer_code": "JwTYh5BHH5A",
+				"language": "English",
+				"mpa_rating": "PG-13",
+				"background_image": "https://yts.am/assets/images/movies/crooked_house_2017/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/crooked_house_2017/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/crooked_house_2017/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/crooked_house_2017/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/crooked_house_2017/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/CEAA4D16D1D9506372DBB37B2C7215D323C4FD1B",
+						"hash": "CEAA4D16D1D9506372DBB37B2C7215D323C4FD1B",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "844.65 MB",
+						"size_bytes": 885679718,
+						"date_uploaded": "2018-02-03 19:27:59",
+						"date_uploaded_unix": 1517704079
+					},
+					{
+						"url": "https://yts.am/torrent/download/0A7A668A875FB2451183F306BD4AD9379CD69186",
+						"hash": "0A7A668A875FB2451183F306BD4AD9379CD69186",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.75 GB",
+						"size_bytes": 1879048192,
+						"date_uploaded": "2018-02-03 23:08:35",
+						"date_uploaded_unix": 1517717315
+					}
+				],
+				"date_uploaded": "2018-02-03 19:27:59",
+				"date_uploaded_unix": 1517704079
+			},
+			{
+				"id": 7047,
+				"url": "https://yts.am/movie/suburbicon-2017",
+				"imdb_code": "tt0491175",
+				"title": "Suburbicon",
+				"title_english": "Suburbicon",
+				"title_long": "Suburbicon (2017)",
+				"slug": "suburbicon-2017",
+				"year": 2017,
+				"rating": 5.5,
+				"runtime": 105,
+				"genres": [
+					"Crime",
+					"Drama",
+					"Mystery",
+					"Thriller"
+				],
+				"summary": "In the bosom of Suburbicon, a family-centred, all-white utopia of manicured lawns and friendly locals, a simmering tension is brewing, as the first African-American family moves in the idyllic community, in the hot summer of 1959. However, as the patriarch Gardner Lodge and his family start catching a few disturbing glimpses of the once welcoming neighbourhood's dark underbelly, acts of unprecedented violence paired with a gruesome death will inevitably blemish Suburbicon's picture-perfect facade. Who would have thought that darkness resides even in Paradise?",
+				"description_full": "In the bosom of Suburbicon, a family-centred, all-white utopia of manicured lawns and friendly locals, a simmering tension is brewing, as the first African-American family moves in the idyllic community, in the hot summer of 1959. However, as the patriarch Gardner Lodge and his family start catching a few disturbing glimpses of the once welcoming neighbourhood's dark underbelly, acts of unprecedented violence paired with a gruesome death will inevitably blemish Suburbicon's picture-perfect facade. Who would have thought that darkness resides even in Paradise?",
+				"synopsis": "In the bosom of Suburbicon, a family-centred, all-white utopia of manicured lawns and friendly locals, a simmering tension is brewing, as the first African-American family moves in the idyllic community, in the hot summer of 1959. However, as the patriarch Gardner Lodge and his family start catching a few disturbing glimpses of the once welcoming neighbourhood's dark underbelly, acts of unprecedented violence paired with a gruesome death will inevitably blemish Suburbicon's picture-perfect facade. Who would have thought that darkness resides even in Paradise?",
+				"yt_trailer_code": "IYga2m0V2O0",
+				"language": "English",
+				"mpa_rating": "R",
+				"background_image": "https://yts.am/assets/images/movies/suburbicon_2017/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/suburbicon_2017/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/suburbicon_2017/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/suburbicon_2017/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/suburbicon_2017/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/5240013DE5E7F69A644758E93A1783BDC617E4D5",
+						"hash": "5240013DE5E7F69A644758E93A1783BDC617E4D5",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "779.1 MB",
+						"size_bytes": 816945562,
+						"date_uploaded": "2018-02-03 14:17:27",
+						"date_uploaded_unix": 1517685447
+					},
+					{
+						"url": "https://yts.am/torrent/download/0EA68A4358FF1B5226CDE7E97516B6C843D42E80",
+						"hash": "0EA68A4358FF1B5226CDE7E97516B6C843D42E80",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.6 GB",
+						"size_bytes": 1717986918,
+						"date_uploaded": "2018-02-03 17:43:55",
+						"date_uploaded_unix": 1517697835
+					}
+				],
+				"date_uploaded": "2018-02-03 14:17:27",
+				"date_uploaded_unix": 1517685447
+			},
+			{
+				"id": 7046,
+				"url": "https://yts.am/movie/roman-j-israel-esq-2017",
+				"imdb_code": "tt6000478",
+				"title": "Roman J. Israel, Esq.",
+				"title_english": "Roman J. Israel, Esq.",
+				"title_long": "Roman J. Israel, Esq. (2017)",
+				"slug": "roman-j-israel-esq-2017",
+				"year": 2017,
+				"rating": 6.4,
+				"runtime": 122,
+				"genres": [
+					"Crime",
+					"Drama"
+				],
+				"summary": "ROMAN J. ISRAEL, ESQ. is a dramatic thriller set in the underbelly of the overburdened Los Angeles criminal court system. Denzel Washington stars as Roman Israel, a driven, idealistic defense attorney who, through a tumultuous series of events, finds himself in a crisis that leads to extreme action. Colin Farrell costars as the monied, cutthroat lawyer who recruits Roman to his firm.",
+				"description_full": "ROMAN J. ISRAEL, ESQ. is a dramatic thriller set in the underbelly of the overburdened Los Angeles criminal court system. Denzel Washington stars as Roman Israel, a driven, idealistic defense attorney who, through a tumultuous series of events, finds himself in a crisis that leads to extreme action. Colin Farrell costars as the monied, cutthroat lawyer who recruits Roman to his firm.",
+				"synopsis": "ROMAN J. ISRAEL, ESQ. is a dramatic thriller set in the underbelly of the overburdened Los Angeles criminal court system. Denzel Washington stars as Roman Israel, a driven, idealistic defense attorney who, through a tumultuous series of events, finds himself in a crisis that leads to extreme action. Colin Farrell costars as the monied, cutthroat lawyer who recruits Roman to his firm.",
+				"yt_trailer_code": "tGVIKqbEtdU",
+				"language": "English",
+				"mpa_rating": "PG-13",
+				"background_image": "https://yts.am/assets/images/movies/roman_j_israel_esq_2017/background.jpg",
+				"background_image_original": "https://yts.am/assets/images/movies/roman_j_israel_esq_2017/background.jpg",
+				"small_cover_image": "https://yts.am/assets/images/movies/roman_j_israel_esq_2017/small-cover.jpg",
+				"medium_cover_image": "https://yts.am/assets/images/movies/roman_j_israel_esq_2017/medium-cover.jpg",
+				"large_cover_image": "https://yts.am/assets/images/movies/roman_j_israel_esq_2017/large-cover.jpg",
+				"state": "ok",
+				"torrents": [
+					{
+						"url": "https://yts.am/torrent/download/24BCE2EEFBE83E581FA349C3C8979DD0004C2112",
+						"hash": "24BCE2EEFBE83E581FA349C3C8979DD0004C2112",
+						"quality": "720p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "898.5 MB",
+						"size_bytes": 942145536,
+						"date_uploaded": "2018-02-03 17:00:12",
+						"date_uploaded_unix": 1517695212
+					},
+					{
+						"url": "https://yts.am/torrent/download/A5D4C28648D6DD2A19BA8AE2BADFC62A598BA5B6",
+						"hash": "A5D4C28648D6DD2A19BA8AE2BADFC62A598BA5B6",
+						"quality": "1080p",
+						"seeds": 0,
+						"peers": 0,
+						"size": "1.86 GB",
+						"size_bytes": 1997159793,
+						"date_uploaded": "2018-02-03 19:40:43",
+						"date_uploaded_unix": 1517704843
+					}
+				],
+				"date_uploaded": "2018-02-03 17:00:12",
+				"date_uploaded_unix": 1517695212
+			}
+  ];
+  return list;
+}
+
+function overlay(txt){
+  var el = $(".overlay.loading");
+  if(txt == 'show') el.fadeIn(150);
+  else if(txt == 'hide') el.fadeOut(150);
+  else el.fade();
+}
+
+function init_page(){
+  var resultContainer = $("#result");
+  var list = load_list();
+
+  // overlay('show');
+	resultContainer.html('');
+  
+  list.forEach(function(el, idx){
+  	var preHtml = resultContainer.html();
+  	resultContainer.html(preHtml + generate_html_card(el));
+  });
+  // overlay('hide');
+}
+
+$(document).ready(function(){
+
+	init_page();
+  
+  $(window).scroll(function() {
+     if($(window).scrollTop() + $(window).height() == $(document).height()) {
+         console.log("bottom!");
+     }
+  });
+});
+</script>
