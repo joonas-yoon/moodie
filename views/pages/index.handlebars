@@ -14,6 +14,9 @@
   	</div>
   </form>
   <div class="row" id="result" data-page="1" data-next="2"></div>
+  <div class="alert alert-info" id="end_result" style="display: none;">
+    더 이상 표시할 결과가 없습니다.
+  </div>
 </div>
 <div class="overlay loading">
   <div class="overlay-body">
@@ -86,6 +89,11 @@ function overlay(txt){
 }
 
 function append_movies(cont, list){
+  if( list.length < 1 ){
+  	$("#end_result").fadeIn();
+  	return;
+  }
+  
   list.forEach(function(el, idx){
     var preHtml = cont.html();
     cont.html(preHtml + generate_html_card(el));
@@ -96,6 +104,8 @@ function init_page(){
   var resultContainer = $("#result");
 	resultContainer.html('');
   resultContainer.data('query', '');
+  $("#end_result").hide();
+  $("input[name=text]").val('');
   load_list('/api/list/', 1, function(list){
   	append_movies(resultContainer, list);
   });
@@ -105,6 +115,7 @@ function search(query){
   var resultContainer = $("#result");
 	resultContainer.html('');
   resultContainer.data('query', query);
+  $("#end_result").hide();
   load_list('/api/search/' + query, 1, function(list){
   	append_movies(resultContainer, list);
   });

@@ -9,6 +9,9 @@ a {
 .row .card {
   margin-bottom: 10px;
 }
+.card .card-title>b {
+  background: #F5D76E;
+}
 .card .card-genres>span {
   font-size: 90%;
   border: 1px solid #ccc;
