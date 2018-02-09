@@ -54,7 +54,7 @@ function load_list(page, callback){
   $.getJSON(
   	'/api/list/' + page,
   	function(result){
-      callback(result.data.movies);
+      callback(result.movies);
     })
   .done(function(d){
     resCont.data('page', page + 1);
