@@ -3,6 +3,8 @@ var request = require('request');
 var urlencode = require('urlencode');
 var router = express.Router();
 
+var config = require('../config');
+
 // middleware that is specific to this router
 router.use(function (req, res, next) {
   next();
@@ -71,11 +73,10 @@ function search_movies(text, page, callback){
   var url = 'https://openapi.naver.com/v1/search/movie.json?';
   var queries = 'display=' + display + '&start=' + start + '&query=' + text;
   var headers = { 
-    'X-Naver-Client-Id': 'QK1yApWnIBHQeBNvdijj',
-    'X-Naver-Client-Secret': 'QUunXjnpMZ'
+    'X-Naver-Client-Id': config.NAVER_KEY,
+    'X-Naver-Client-Secret': config.NAVER_SECRET
   };
   
-  console.log(url + queries);
   request({
       headers: headers,
       uri: url + queries,
